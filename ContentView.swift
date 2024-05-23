@@ -1,15 +1,7 @@
-//
-//  ContentView.swift
-//  Click!
-//
-//  Created by Mateen Akhtar on 09/05/2024.
-//
-
 import SwiftUI
 
-
 struct ContentView: View {
-    @State var times = 0;
+    @State var times = 0
     @State var timeRemaining = 0
     
     @State var IsStarted = false // not started by default that would be dumb
@@ -17,24 +9,16 @@ struct ContentView: View {
     @State var showPlayAgain = false
     @State var timerActive = false
     @State var HasClickedPlayAgain = false
-    @State var shouldShowPlayButtonAgain = false;
+    @State var shouldShowPlayButtonAgain = false
     @State var DidPayAtleastOnce = false
-
-    
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    
-
     var body: some View {
         VStack {
-            
-            
-            
             Text("Time: \(timeRemaining)")
                     .font(.largeTitle)
 
-           
             Text("Times clicked: \(times)")
             
             if (IsStarted == false) {
@@ -47,18 +31,11 @@ struct ContentView: View {
                        
                     IsStarted = !IsStarted
                     print("\(IsStarted)")
-                    
-                      }
-                
-               
-                
-
+                }
             } else {
                 Button("") {
                     self.times += 1
-                    print("Times clicked: \(times)")
-                  
-                    
+                    print("Times clicked: \(times)")  
                 }
                 .padding(.vertical, 100)
                 .scaleEffect(8.5)
@@ -74,17 +51,13 @@ struct ContentView: View {
                             if !DidPayAtleastOnce {
                                 showPlayAgain = true
                             }
-                            
                             HasClickedPlayAgain = false; // he didnt unclick it just make it appear again
                          }
-
-
+                      
                   } else {
                     
                   }
-
                 }
-
                 .buttonStyle(.bordered)
                 .foregroundColor(.blue)
                 .disabled(timeUp)
@@ -92,12 +65,9 @@ struct ContentView: View {
             
             if timeUp && shouldShowPlayButtonAgain == true {
               Text("Final Score: \(times)")
-                    
-                
             }
             
             if showPlayAgain && shouldShowPlayButtonAgain == true {
-              
               Button("Play Again") {
                 print("i hate python")
                   showPlayAgain = false;
@@ -107,17 +77,8 @@ struct ContentView: View {
                   shouldShowPlayButtonAgain = false;
                   timeUp = false;
                   DidPayAtleastOnce = true;
-                  
               }
-                
-                
-              
             }
-
-
-            
-           
-
         }
         .onReceive(timer) { _ in
              if self.timeRemaining > 0 {
